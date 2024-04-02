@@ -13,6 +13,7 @@ function chech_login      # is login in base? + is base exist?
         do 
             if [[ $line == $login$separator* ]]
             then
+                echo $line
                 return 1 # exit with error
             fi
         done
@@ -22,4 +23,18 @@ function chech_login      # is login in base? + is base exist?
 function hash_password   # hashing password :| 
 {
     echo $1 | sha256sum | awk '{print $1}'
+}
+
+function capture_intruder 
+{
+    directory=intruders
+
+    if [[ ! -d $directory ]]
+    then
+        mkdir $directory
+    fi
+
+    today=$(date)
+
+    ffmpeg -i /dev/video0 -t 1 "$directory/$today.png" 1> /dev/null 2> /dev/null 
 }

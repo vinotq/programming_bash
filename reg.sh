@@ -20,7 +20,7 @@ then
     exit
 fi 
 
-if ! chech_login $login $db_name $separator # checking loging in base
+if ! chech_login $login $db_name $separator > /dev/null # checking loging in base
 then
     echo "This login is already exist in base!"
     exit
