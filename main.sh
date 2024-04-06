@@ -1,6 +1,5 @@
 #!/bin/bash
-
-
+. ./functions.sh
 
 balance=$(head -n 1 data.txt)
 
@@ -18,7 +17,7 @@ then
     exit
 elif [[ option -eq 1 ]]
 then
-    show_balance()
+    show_balance ()
 elif [[ option -eq 2 ]]
 then
     echo "in future it will be banks here"
