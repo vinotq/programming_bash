@@ -1,1 +1,32 @@
-47
+148891147
+
+
+Bank 1
+Name: "TrueBank"
+1. 10% for 5 min
+2. 6.7% for 3 min
+Bankrupt chance: 2.3%
+
+Bank 2
+Name: "Mr. Fresh Appartments"
+1. 13% for 5 min
+2. 8% for 3 min
+Bankrupt chance: 4.7%
+
+Bank 3
+Name: "FastMoney"
+1. 8% for 2 min
+2. 4.7% for 1 min
+Bankrupt chance: 30%
+
+Bank 4
+Name: "BersBank"
+1. 14% for 7 min
+2. 7.8% for 5 min
+Bankrupt chance: 0.7%
+
+Bank 5
+Name: "SnegirBB"
+1. 9% for 4 min
+2. 3.9% for 2 min
+Bankrupt chance: 11%
