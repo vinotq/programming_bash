@@ -1,7 +1,8 @@
 #!/bin/bash
 . ./functions.sh
 
-balance=$(head -n 1 data.txt)
+balance=$(head -n 1 balance.txt)
+separator="|"
 
 echo "Hello! This is bank deposit program!" 
 echo " "
@@ -20,7 +21,7 @@ then
     show_balance
 elif [[ option -eq 2 ]]
 then
-    echo "in future it will be banks here"
+    show_bank_list
 elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
 then
     echo "Thare aren't this option in program!"

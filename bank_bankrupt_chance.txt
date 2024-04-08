@@ -1,0 +1,5 @@
+1bank_percent|2.3
+2bank_percent|4.7
+3bank_percent|30
+4bank_percent|0.7
+5bank_percent|11
