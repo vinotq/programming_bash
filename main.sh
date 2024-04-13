@@ -1,6 +1,8 @@
 #!/bin/bash
 . ./functions.sh
+. ./bank_information.sh
 
+echo " "
 echo "Hello! This is bank deposit program!" 
 echo " "
 echo "To check your balance please enter 1"
