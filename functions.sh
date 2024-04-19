@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 function show_balance 
 {   
     balance=$(head -n 1 balance.txt)
@@ -62,5 +61,15 @@ function show_bank_list
     fi
 
     done
+}
+
+function progress_bar
+{
+    let progress=$((${1}*100/${2}*100))/100
+    let done=$((${progress}*4))/10
+    let left=40-$done
+    fill=$(printf "%${done}s")
+    empty=$(printf "%${left}s")
+    printf "\rProgress : [${fill// /#}${empty// /-}] ${progress}%%"
 }
 

@@ -1,4 +1,4 @@
-FastMoney
-8% for 2 min
-4.7% for 1 min
-30%
+Name: FastMoney
+Persent: 47
+1-st offer: 8% for 2 min
+2-st offer: 3% for 1 min

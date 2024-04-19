@@ -1,5 +1,4 @@
-BersBank
-14% for 7 min
-7.8% for 5 min
-0.7%
-
+Name: BersBank
+Persent: 1
+1-st offer: 14% for 7 min
+2-st offer: 8% for 5 min

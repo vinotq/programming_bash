@@ -1,4 +1,5 @@
 #!/bin/bash
+. ./functions.sh
 
 function show_bank_true_bank
 {
@@ -43,6 +44,8 @@ function show_bank_true_bank
                     echo " "            
                     read -p "Are you actally want to give bank $sum? To complete - enter 1; If you don't want - enter 0: " choice
                     echo " "
+                    
+                    offer_persent=10
 
                     if [[ $choice -eq 0 ]]
                     then
@@ -51,14 +54,27 @@ function show_bank_true_bank
                     elif [[ $choice -eq 1 ]]
                     then
 
-                        balance=$(($balance-$sum))
+                        echo "Time is going!"
+
+                        start=1
+                        end=100
+
+                        for number in $(seq ${start} ${end})
+                        do
+                            sleep 0.1
+                            progress_bar ${number} ${end}
+                        done
+
+                        echo " "
+                        echo "You good!"
+
+                        
+                        benefit=$((($sum*$offer_persent)/100))
+
+                        balance=$(($balance+$benefit))
                         echo $balance > balance.txt
-                        if [[ $balance -eq 0 ]]
-                        then
-                            echo "You haven't got any money on yor balance!"
-                            echo " "
-                        exit
-                        fi
+
+                        echo "Congratulations! Now you have $balance. This offer gives you $benefit benefit!"
 
                     elif [[ $choice ]]
                     then
