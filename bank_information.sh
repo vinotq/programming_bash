@@ -4,8 +4,9 @@
 function show_bank_true_bank
 {
     echo " "
-    echo "You in TrueBank office!"
     echo " "
+    echo " "
+    echo "You in TrueBank office!"
     echo "There are all offers of this bank:"
     echo "$(tail -n 2 ./banks/true_bank.txt)"
     echo " "
@@ -64,16 +65,13 @@ function show_bank_true_bank
                             sleep 0.1
                             progress_bar ${number} ${end}
                         done
-
-                        echo " "
-                        echo "You good!"
-
                         
                         benefit=$((($sum*$offer_persent)/100))
 
                         balance=$(($balance+$benefit))
                         echo $balance > balance.txt
 
+                        echo " "
                         echo "Congratulations! Now you have $balance. This offer gives you $benefit benefit!"
 
                     elif [[ $choice ]]
