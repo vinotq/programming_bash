@@ -1,4 +1,4 @@
-Name: TrueBank
+TrueBank
 Persent: 3
-1-st offer: 10% for 5 min
-2-st offer: 6% for 3 min
+1st offer: 10% for 5 min
+2d offer: 6% for 3 min

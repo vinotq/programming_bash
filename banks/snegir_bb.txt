@@ -1,4 +1,4 @@
-Name: SnegirBB
+SnegirBB
 Persent: 11
-1-st offer: 9% for 4 min
-2-st offer: 3% for 2 min
+1st offer: 9% for 4 min
+2d offer: 3% for 2 min

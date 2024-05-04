@@ -1,4 +1,4 @@
-Name: Mr. Fresh Appartments
+Mr. Fresh Appartments
 Persent: 4
-1-st offer: 13% for 5 min
-2-st offer: 8% for 3 min
+1st offer: 13% for 5 min
+2d offer: 8% for 3 min

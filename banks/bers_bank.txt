@@ -1,4 +1,4 @@
-Name: BersBank
+BersBank
 Persent: 1
-1-st offer: 14% for 7 min
-2-st offer: 8% for 5 min
+1st offer: 14% for 7 min
+2d offer: 8% for 5 min

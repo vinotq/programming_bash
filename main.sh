@@ -1,17 +1,14 @@
 #!/bin/bash
 . ./functions.sh
-. ./bank_information.sh
+
 
 echo " "
 echo " "
 echo " "
 echo " "
 echo "Hello! This is bank deposit program!" 
-echo " "
-echo "To check your balance please enter 1"
-echo "To show all banks please enter 2"
-echo "To exit the program please enter 0"
-echo " "
+sleep 0.7
+show_info
 
 while true
 do
@@ -22,9 +19,15 @@ then
     exit
 elif [[ option -eq 1 ]]
 then
+    echo " "
     show_balance
 elif [[ option -eq 2 ]]
 then
+    echo " "
+    sleep 0.8
+    echo "There are all banks for this moment: "
+    sleep 0.8
+    echo " "
     show_bank_list
 elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
 then
