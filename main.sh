@@ -1,13 +1,10 @@
 #!/bin/bash
 . ./functions.sh
 
-
-echo " "
-echo " "
-echo " "
-echo " "
-echo "Hello! This is bank deposit program!" 
-sleep 0.7
+clear
+printf "Hello! This is bank-deposit system simulator!\n\n"
+sleep 3.5
+clear
 show_info
 
 while true
@@ -19,15 +16,9 @@ then
     exit
 elif [[ option -eq 1 ]]
 then
-    echo " "
     show_balance
 elif [[ option -eq 2 ]]
 then
-    echo " "
-    sleep 0.8
-    echo "There are all banks for this moment: "
-    sleep 0.8
-    echo " "
     show_bank_list
 elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
 then
