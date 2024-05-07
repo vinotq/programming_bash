@@ -6,4 +6,7 @@ printf "Hello! 👋 \n\n💶 This is bank-deposit system simulator! 💶 \n\n"
 sleep 3.5
 clear
 
-main
+while true
+do
+    main
+done

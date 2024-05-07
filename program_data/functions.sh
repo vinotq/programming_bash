@@ -30,21 +30,25 @@ function main
 
     if [[ option -eq 0 ]]
     then
+        clear
         exit
     elif [[ option -eq 1 ]]
     then
         show_balance
     elif [[ option -eq 2 ]]
     then
+        clear
         show_bank_list
     elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
     then
-        echo "🚩 There isn't this option in program! Please enter correct option! 🚩 "
+        clear
+        printf "🚩 There isn't this option in program! Please enter correct option! 🚩\n\n"
     fi
 }
 
 function show_info
 { 
+    printf "⭐ There are all functions: \n\n"
     echo "⏩ To check your balance please enter 1"    
     echo "⏩ To show all banks please enter 2"     
     printf "⏩ To exit the program please enter 0\n\n" 
@@ -56,6 +60,7 @@ function is_balance_ok
     then
         echo "❗ You haven't got any money on yor balance! ❗"
         echo " "
+        clear
         exit
     fi
 }
@@ -64,8 +69,8 @@ function show_balance
 {   
     clear
     balance="$(head -n 1 ./program_data/balance.txt)"    
-    printf "✅ Your balance is: $balance🤯 \n\n"    
-    show_info
+    printf "✅ Your balance is: $balance🤯 \n\n"
+    main    
 }
 
 function determine_bank
@@ -122,7 +127,9 @@ function choose_bank
         show_bank_snegir_bb
     
     else
-        echo "There isn't this bank! Please choose correct bank!"   
+        clear
+        printf "🚩 There isn't this bank! Please choose correct bank! 🚩\n\n"   
+        show_bank_list
 
     fi
 }
@@ -282,8 +289,7 @@ function determine_bankrupt_percent
 
 function show_bank_list
 {
-    clear
-    printf "There are all banks for this moment: \n\n"
+    printf "⭐ There are all banks for this moment: \n\n"
     i=1
     if [[ ((-e $true_bank)) && (-e $inf_true_bank) ]]
     then
@@ -325,7 +331,7 @@ function show_bank_list
         echo "🚫 This bank are bankrupt 🚫"
     fi
 
-        printf "\n\n⏩ To select bank, enter number of bank \n\n⏩ Enter 0 to back to main menu \n\n"
+        printf "\n\n⏩ To select bank, enter number of bank \n⏩ Enter 0 to back to main menu \n\n"
         read -p "💠 Please choose the bank: " choosed_bank
 
         choose_bank
@@ -350,10 +356,11 @@ function offer_check
         show_info_snegir_bb
     fi
 
-    read -p "Please choose the offer: " offer
+    read -p "💠 Please choose the offer: " offer
     
     if [[ $offer -eq 0 ]]
     then
+        clear
         show_bank_list
             
     elif [[ ($offer -eq 1) || ($offer -eq 2) ]]
@@ -361,7 +368,9 @@ function offer_check
         choose_sum
 
     else
-        echo "No such offer. Please choose correct!"
+        clear
+        echo "🚩 No such offer. Please choose correct! 🚩"
+        offer_check
     fi  
 }
 
@@ -381,9 +390,10 @@ function choose_sum
         min_eh=5
     fi
 
-    printf "❗WARNING❗ If you chose sum of 🤯 which not wultiple of $min_eh, all not integer part of a benefit will be the commission of bank!\n\n\n"
-    printf "Choose 0 to teleport to bank office\n\n" 
-    printf "✅ For this moment you have $balance🤯 \n\n"
+    printf "❗WARNING❗\n\n 🚨 If you chose sum of 🤯 which not wultiple of $min_eh, all float part of a benefit will be the commission of bank! 🚨\n\n\n"
+    printf "✅ For this moment you have $balance🤯 \n\n\n"
+    printf "⏩ Choose 0 to teleport to bank office\n" 
+    printf "⏩ Enter the sum in the bracket bellow\n\n"
 
     read -p "💠 Please choose the sum (min $min_eh🤯): " sum
 
@@ -396,8 +406,8 @@ function choose_sum
     then
         while [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 0) ]]
         do
-            printf "\n❌ You haven't got this sum of 🤯 on your balance or sum less than $min_eh! \n\n"
-            printf "✅ Please enter correct sum!\n\n"
+            printf "\n❌ You haven't got this sum of 🤯 on your balance or sum less than $min_eh! ❌ \n\n"
+            printf "🔁 Please enter correct sum!\n\n"
             read -p "💠 Please choose the sum (min $min_eh🤯): " sum
         done
         choise_check 
@@ -410,8 +420,8 @@ function choose_sum
 function choise_check
 {
     clear
-    printf "❗WARNING❗ \n\n❓ Are you actally want to give bank $sum? \n\n⏩ To complete - enter 1; If you don't want complere deposite enter 0"            
-    read -p "💠 Please choose choise" choice
+    printf "❗WARNING❗ \n\n❓ Are you actally want to give bank $sum? ❓ \n\n⏩ To complete - enter 1\n⏩ If you don't want complere deposite enter 0\n\n"            
+    read -p "💠 Please choose choise: " choice
     echo " "
     
     if [[ $choice -eq 0 ]]
@@ -436,45 +446,36 @@ function choise_check
             progress_bar ${number} ${end}
         done
 
-        rm ./program_data/is_bankrupt.txt
-
         determine_bankrupt_percent
 
-        bankrupt=$(($RANDOM % 100 + 1))
+        is_bankrupt=$(($RANDOM % 100 + 1))
 
-        echo $bankrupt > ./program_data/test_bankrup.txt #need to remove 
+        if [[ $is_bankrupt -lt $bankrupt_percent ]]
+        then
+            clear
 
-        shuf -i 1-100 -n $(($bankrupt_percent)) >> ./program_data/is_bankrupt.txt
+            balance=$(($balance-$sum))
 
-        cat ./program_data/is_bankrupt.txt | while read y
-        do
-            for i in $y
-            do
-                if [[ $bankrupt -eq i ]]
-                then
-                    clear
-               
-                    balance=$(($balance-$sum))
+            echo $balance > ./program_data/balance.txt
+            printf "😭 Sadly, but this bank now is bankrupt! Now you can't have deposits in this bank because it doesn't exist! 😭\n\n"
+            printf "😭 Also you loose $sum🤯 - all 🤯, which was in bank while this deposit! 😭\n\n"
+            printf "❗WARNING❗ After 15 seconds programm will shut down!\n\n"
+            sleep 15
 
-                    echo $balance > ./program_data/balance.txt
-                    printf "😭 Sadly, but this bank now is bankrupt! Now you can't have deposits in this bank because it doesn't exist! 😭\n\n"
-                    printf "Also you loose $sum🤯 - all 🤯, which was in bank while this deposit!\n\n"
-                    printf "❗WARNING❗ After 20 seconds programm will shut down!\n\n"
-                    sleep 20
+            determine_bank
 
-                    determine_bank
+            cp $inf_bank ~/Документы/
+            cp $bank ~/Документы/
+            rm $inf_bank
+            rm $bank
 
-                    cp $inf_bank ~/Документы/
-                    cp $bank ~/Документы/
-                    rm $inf_bank
-                    rm $bank
+            clear
+            exit
+            
+        else
+            calculating_benefit
 
-                    exit
-
-                fi
-            done
-        done
-    calculating_benefit 
+        fi
     fi
 }
 
