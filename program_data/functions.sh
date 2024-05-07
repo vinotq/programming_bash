@@ -28,6 +28,12 @@ function main
 
     read -p "💠 Please choose option: " option
 
+    if ! echo "$option" | grep -Eq '^[0-9]+$'; then
+        clear
+        printf "🚩 No such option. In script using only numbers, so don't enter symbols here! 🚩\n\n"  
+        main  
+    fi
+
     if [[ option -eq 0 ]]
     then
         clear
@@ -42,7 +48,8 @@ function main
     elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
     then
         clear
-        printf "🚩 There isn't this option in program! Please enter correct option! 🚩\n\n"
+        printf "🚩 No such option. Please enter correct option! 🚩\n\n"
+        main
     fi
 }
 
@@ -56,12 +63,10 @@ function show_info
 
 function is_balance_ok
 {   
-    if [[ $balance -eq 0 ]]
+    if [[ (($balance -lt 5)) ]]
     then
-        echo "❗ You haven't got any money on yor balance! ❗"
-        echo " "
         clear
-        exit
+        end_game
     fi
 }
 
@@ -112,23 +117,32 @@ function choose_bank
     
     elif [[ $choosed_bank -eq num_true_bank ]]
     then
+        clear
         show_bank_true_bank
+
     elif [[ $choosed_bank -eq num_bers_bank ]]
     then
+        clear
         show_bank_bers_bank
+
     elif [[ $choosed_bank -eq num_fast_money ]]
     then
+        clear
         show_bank_fast_money
+
     elif [[ $choosed_bank -eq num_mr_fresh_app ]]
     then
+        clear
         show_bank_mr_fresh_app
+
     elif [[ $choosed_bank -eq num_snegir_bb ]]
     then
+        clear
         show_bank_snegir_bb
     
     else
         clear
-        printf "🚩 There isn't this bank! Please choose correct bank! 🚩\n\n"   
+        printf "🚩 No such bank. Please choose correct bank! 🚩\n\n"   
         show_bank_list
 
     fi
@@ -296,7 +310,7 @@ function show_bank_list
         num_true_bank=$i 
         echo "$i 🏦: $(head -n 1 $true_bank)"; i=$((i+1))
     else
-        echo "🚫 This bank are bankrupt 🚫"
+        echo "🚫 This bank is bankrupt 🚫"
     fi
 
     if [[ ((-e $bers_bank)) && (-e $inf_bers_bank) ]]
@@ -304,7 +318,7 @@ function show_bank_list
         num_bers_bank=$i 
         echo "$i 🏦: $(head -n 1 $bers_bank)"; i=$((i+1))
     else
-        echo "🚫 This bank are bankrupt 🚫"
+        echo "🚫 This bank is bankrupt 🚫"
     fi
     
     if [[ ((-e $snegir_bb)) && (-e $inf_snegir_bb) ]]
@@ -312,7 +326,7 @@ function show_bank_list
         num_snegir_bb=$i 
         echo "$i 🏦: $(head -n 1 $snegir_bb)"; i=$((i+1))
     else
-        echo "🚫 This bank are bankrupt 🚫"
+        echo "🚫 This bank is bankrupt 🚫"
     fi
         
     if [[ ((-e $mr_fresh_app)) && (-e $inf_mr_fresh_app) ]]
@@ -320,7 +334,7 @@ function show_bank_list
         num_mr_fresh_app=$i 
         echo "$i 🏦: $(head -n 1 $mr_fresh_app)"; i=$((i+1))
     else
-        echo "🚫 This bank are bankrupt 🚫"
+        echo "🚫 This bank is bankrupt 🚫"
     fi
         
     if [[ ((-e $fast_money)) && (-e $inf_fast_money) ]]
@@ -328,11 +342,17 @@ function show_bank_list
         num_fast_money=$i 
         echo "$i 🏦: $(head -n 1 $fast_money)"; i=$((i+1))
     else
-        echo "🚫 This bank are bankrupt 🚫"
+        echo "🚫 This bank is bankrupt 🚫"
     fi
 
         printf "\n\n⏩ To select bank, enter number of bank \n⏩ Enter 0 to back to main menu \n\n"
         read -p "💠 Please choose the bank: " choosed_bank
+
+        if ! echo "$choosed_bank" | grep -Eq '^[0-9]+$'; then
+            clear
+            printf "🚩 No such option. In script using only numbers, so don't enter symbols here! 🚩\n\n"  
+            show_bank_list  
+        fi
 
         choose_bank
 }
@@ -357,6 +377,12 @@ function offer_check
     fi
 
     read -p "💠 Please choose the offer: " offer
+
+    if ! echo "$offer" | grep -Eq '^[0-9]+$'; then
+        clear
+        printf "🚩 No such option. In script using only numbers, so don't enter symbols here! 🚩\n\n"  
+        offer_check 
+    fi
     
     if [[ $offer -eq 0 ]]
     then
@@ -365,11 +391,12 @@ function offer_check
             
     elif [[ ($offer -eq 1) || ($offer -eq 2) ]]
     then 
+        clear
         choose_sum
 
     else
         clear
-        echo "🚩 No such offer. Please choose correct! 🚩"
+        printf "🚩 No such offer. Please choose correct! 🚩\n\n"
         offer_check
     fi  
 }
@@ -377,7 +404,6 @@ function offer_check
 function choose_sum
 {   
     offer_percent
-    clear
 
     if [[ offer_percent -eq 5 ]]
     then
@@ -390,43 +416,61 @@ function choose_sum
         min_eh=5
     fi
 
-    printf "❗WARNING❗\n\n 🚨 If you chose sum of 🤯 which not wultiple of $min_eh, all float part of a benefit will be the commission of bank! 🚨\n\n\n"
+    printf "\n❗WARNING❗\n\n🚨 If you chose sum of 🤯 which not wultiple of $min_eh, all float part of a benefit will be the commission of bank! 🚨\n\n\n"
     printf "✅ For this moment you have $balance🤯 \n\n\n"
     printf "⏩ Choose 0 to teleport to bank office\n" 
     printf "⏩ Enter the sum in the bracket bellow\n\n"
 
     read -p "💠 Please choose the sum (min $min_eh🤯): " sum
 
+    if ! echo "$sum" | grep -Eq '^[0-9]+$'; then
+        clear
+        printf "🚩 No such option. In script using only numbers, so don't enter symbols here! 🚩\n\n"  
+        choose_sum 
+    fi
+
     if [[ $sum -eq 0 ]]
     then
         choose_bank
     fi
 
-    if [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 0) ]]
+    if [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 5) ]]
     then
-        while [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 0) ]]
+        while [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 5) ]]
         do
-            printf "\n❌ You haven't got this sum of 🤯 on your balance or sum less than $min_eh! ❌ \n\n"
-            printf "🔁 Please enter correct sum!\n\n"
-            read -p "💠 Please choose the sum (min $min_eh🤯): " sum
+            clear
+            printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh). The most minimum sum for deposit is 5! ❌ \n\n"
+            printf "💡 Please enter correct sum!\n\n"
+            choose_sum
+
         done
-        choise_check 
+        clear
+        choice_check 
+        
     else
-        choise_check        
+        clear
+        choice_check        
     fi
 
 }
 
-function choise_check
+function choice_check
 {
-    clear
-    printf "❗WARNING❗ \n\n❓ Are you actally want to give bank $sum? ❓ \n\n⏩ To complete - enter 1\n⏩ If you don't want complere deposite enter 0\n\n"            
-    read -p "💠 Please choose choise: " choice
+    printf "\n❗WARNING❗ \n\n❓ Are you actally want to give bank $sum? ❓ \n\n⏩ To complete - enter 1\n⏩ If you don't want complere deposite enter 0\n\n"            
+    read -p "💠 Please choose choice: " choice
+
+    if ! echo "$choice" | grep -Eq '^[0-9]+$'; then
+        clear
+        printf "🚩 No such option. In script using only numbers, so don't enter symbols here! 🚩\n\n"  
+        choice_check  
+    fi
+
     echo " "
     
     if [[ $choice -eq 0 ]]
     then
-        echo "✅ Now you can chose another sum of 🤯 or exit by enter 0"
+        clear
+        printf "💡 Now you can chose another sum of 🤯 or exit by enter 0\n\n"
         choose_sum
 
     elif [[ $choice -eq 1 ]]
@@ -435,7 +479,7 @@ function choise_check
         offer_time
         clear
 
-        printf "❗Time is going!❗\n\n"
+        printf "⏳ Time is going! ⏳ \n\n"
 
         start=1
         end=100
@@ -457,9 +501,9 @@ function choise_check
             balance=$(($balance-$sum))
 
             echo $balance > ./program_data/balance.txt
-            printf "😭 Sadly, but this bank now is bankrupt! Now you can't have deposits in this bank because it doesn't exist! 😭\n\n"
+            printf "💥 Sadly, but this bank now is bankrupt! Now you can't have deposits in this bank because it doesn't exist! 💥\n\n"
             printf "😭 Also you loose $sum🤯 - all 🤯, which was in bank while this deposit! 😭\n\n"
-            printf "❗WARNING❗ After 15 seconds programm will shut down!\n\n"
+            printf "❗WARNING❗\nAfter 15 seconds programm will shut down!\n\n"
             sleep 15
 
             determine_bank
@@ -474,8 +518,13 @@ function choise_check
             
         else
             calculating_benefit
-
         fi
+    
+    else 
+        clear
+        printf "🚩 No such option. Please choose correct! 🚩\n\n"
+        choice_check
+
     fi
 }
 
@@ -490,8 +539,8 @@ function calculating_benefit
     balance=$(($balance+$benefit))
     echo $balance > ./program_data/balance.txt
 
-    printf "🥳 Congratulations! Now you have $balance🤯. This offer gave you $benefit🤯 benefit! 🥳\n\n "
-    printf "❗WARNING❗After 10 seconds you will teleport to bank office!\n\n"
+    printf "🥳 Congratulations! Now you have $balance🤯. This offer gave you $benefit🤯 benefit! 🥳\n\n"
+    printf "❗WARNING❗\nAfter 10 seconds you will teleport to bank office!\n\n"
     sleep 10
 
     choose_bank
@@ -506,3 +555,26 @@ function progress_bar
     empty=$(printf "%${left}s")
     printf "\r✅ Progress : [${fill// /#}${empty// /-}] ${progress}%%"
 }
+
+function end_game
+{
+    printf "🥳 Congratulations! 🥳 \n\nBecause you have $balance🤯 on your balance, 🎷 game is over (minimum sum is 5🤯) \n\n"
+    printf "💙 Thank you for plaing! By! 💙\n"
+
+    sleep 15
+
+    main_f=./main.sh
+    main_folder=./program_data
+    banks=./banks
+
+    cp $main_f ~/Документы/
+    cp -r $main_folder ~/Документы/
+    cp -r $banks ~/Документы/
+    rm -r $banks
+    rm -r $main_folder
+    rm  $main_f
+
+    clear
+    exit
+}
+

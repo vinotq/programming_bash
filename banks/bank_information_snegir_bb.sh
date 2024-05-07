@@ -2,7 +2,6 @@
 
 function show_info_snegir_bb
 {
-    clear
     printf "✅ You in SnegirBB office!\n\n\n"
     printf "🔎 There are all offers of this bank: \n\n"
     printf "$(tail -n 2 ./banks/snegir_bb.txt) \n\n\n"

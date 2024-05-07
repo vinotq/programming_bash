@@ -2,7 +2,6 @@
 
 function show_info_true_bank
 {
-    clear
     printf "✅ You in TrueBank office!\n\n\n"
     printf "🔎 There are all offers of this bank: \n\n"
     printf "$(tail -n 2 ./banks/true_bank.txt) \n\n\n"
