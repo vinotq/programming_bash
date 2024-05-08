@@ -439,7 +439,8 @@ function choose_sum
         while [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 5) ]]
         do
             clear
-            printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh)! ❌ \n\n"
+            printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh)! ❌ \n"
+            printf "❌ Also the minimum balance is 5, so sum of deposit need to be greater then $(($balance-5)) or equal $(($balance-5))! ❌ \n\n"
             printf "💡 Please enter correct sum!\n\n"
             choose_sum
 
