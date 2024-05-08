@@ -439,7 +439,7 @@ function choose_sum
         while [[ ($sum -lt $min_eh) || ($(($balance-$sum)) -lt 5) ]]
         do
             clear
-            printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh). The most minimum sum for deposit is 5! ❌ \n\n"
+            printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh)! ❌ \n\n"
             printf "💡 Please enter correct sum!\n\n"
             choose_sum
 
@@ -540,7 +540,7 @@ function calculating_benefit
     echo $balance > ./program_data/balance.txt
 
     printf "🥳 Congratulations! Now you have $balance🤯. This offer gave you $benefit🤯 benefit! 🥳\n\n"
-    printf "❗WARNING❗\nAfter 10 seconds you will teleport to bank office!\n\n"
+    printf "❗WARNING❗\n\nAfter 10 seconds you will teleport to bank office!\n\n"
     sleep 10
 
     choose_bank
