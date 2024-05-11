@@ -440,8 +440,8 @@ function choose_sum
         do
             clear
             printf "❌ You haven't got this sum of 🤯 on your balance or sum less than sum for this deposit ($min_eh)! ❌ \n"
-            printf "❌ Also the minimum balance is 5, so sum of deposit need to be greater then $(($balance-5)) or equal $(($balance-5))! ❌ \n\n"
-            printf "💡 Please enter correct sum!\n\n"
+            printf "❌ Also the minimum balance is 5, so sum of deposit need to be greater or equal $(($balance-5))! ❌ \n\n"
+            printf "💡 Please enter correct sum!\n"
             choose_sum
 
         done
@@ -505,7 +505,6 @@ function choice_check
             printf "💥 Sadly, but this bank now is bankrupt! Now you can't have deposits in this bank because it doesn't exist! 💥\n\n"
             printf "😭 Also you loose $sum🤯 - all 🤯, which was in bank while this deposit! 😭\n\n"
             printf "❗WARNING❗\nAfter 15 seconds programm will shut down!\n\n"
-            sleep 15
 
             determine_bank
 
@@ -513,6 +512,8 @@ function choice_check
             cp $bank ~/Документы/
             rm $inf_bank
             rm $bank
+            
+            sleep 15
 
             clear
             exit
@@ -560,7 +561,7 @@ function progress_bar
 function end_game
 {
     printf "🥳 Congratulations! 🥳 \n\nBecause you have $balance🤯 on your balance, 🎷 game is over (minimum sum is 5🤯) \n\n"
-    printf "💙 Thank you for plaing! By! 💙\n"
+    printf "💙 Thank you for plaing! Bye! 💙\n"
 
     sleep 15
 
@@ -574,6 +575,7 @@ function end_game
     rm -r $banks
     rm -r $main_folder
     rm  $main_f
+    
 
     clear
     exit
