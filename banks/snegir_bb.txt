@@ -1,4 +1,1 @@
-SnegirBB
-Persent: 13
-⚡ 1st offer: 10 persents for 47 sec
-⚡ 2d offer: 5 persents for 16 sec 
+SnegirBB|13|10|47|5|16

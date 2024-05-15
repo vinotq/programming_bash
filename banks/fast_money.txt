@@ -1,4 +1,2 @@
-FastMoney
-Persent: 47
-⚡ 1st offer: 10 persents for 17 sec
-⚡ 2d offer: 5 persents for for 8 sec
+FastMoney|47|10|17|5|8
+

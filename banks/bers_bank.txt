@@ -1,4 +1,2 @@
-BersBank
-Persent: 1
-⚡ 1st offer: 20 persents for 1 min
-⚡ 2d offer: 10 persents for 47 sec
+BersBank|1|20|60|10|47
+

@@ -1,24 +1,10 @@
 #!/bin/bash
 
 true_bank=./banks/true_bank.txt
-inf_true_bank=./banks/bank_information_true_bank.sh
-. ./banks/bank_information_true_bank.sh
-
 bers_bank=./banks/bers_bank.txt
-inf_bers_bank=./banks/bank_information_bers_bank.sh
-. ./banks/bank_information_bers_bank.sh
-
 snegir_bb=./banks/snegir_bb.txt
-inf_snegir_bb=./banks/bank_information_snegir_bb.sh
-. ./banks/bank_information_snegir_bb.sh
-
 mr_fresh_app=./banks/mr_fresh_app.txt
-inf_mr_fresh_app=./banks/bank_information_mr_fresh_app.sh
-. ./banks/bank_information_mr_fresh_app.sh
-
 fast_money=./banks/fast_money.txt
-inf_fast_money=./banks/bank_information_fast_money.sh
-. ./banks/bank_information_fast_money.sh
 
 balance="$(head -n 1 ./program_data/balance.txt)"
 
@@ -46,8 +32,7 @@ function main
     then
         clear
         show_bank_list
-    elif [[ (option -ne 0) || (option -ne 1) || (option -ne 2) ]]
-    then
+    else
         clear
         printf "🚩 There is no such option. Enter the correct option! 🚩\n\n"
         main
@@ -83,27 +68,22 @@ function determine_bank
 {
     if [[ num_true_bank -eq $choosed_bank ]]
     then
-        inf_bank=$inf_true_bank
         bank=$true_bank
 
     elif [[ num_bers_bank -eq $choosed_bank ]]
     then
-        inf_bank=$inf_bers_bank
         bank=$bers_bank
 
     elif [[ num_fast_money -eq $choosed_bank ]]
     then
-        inf_bank=$inf_fast_money
         bank=$fast_money
 
     elif [[ num_mr_fresh_app -eq $choosed_bank ]]
     then
-        inf_bank=$inf_mr_fresh_app
         bank=$mr_fresh_app
 
     elif [[ num_snegir_bb -eq $choosed_bank ]]
     then
-        inf_bank=$inf_snegir_bb
         bank=$snegir_bb
 
     fi
@@ -308,7 +288,7 @@ function show_bank_list
 
     printf "⭐ There are all banks for this moment: \n\n"
 
-    if [[ ((-e $true_bank)) && (-e $inf_true_bank) ]]
+    if [[ -e $true_bank ]]
     then
         num_true_bank=$i 
         echo "$i 🏦: $(head -n 1 $true_bank)"; i=$((i+1))
@@ -316,7 +296,7 @@ function show_bank_list
         echo "🚫 This bank is bankrupt 🚫"
     fi
 
-    if [[ ((-e $bers_bank)) && (-e $inf_bers_bank) ]]
+    if [[ -e $bers_bank ]]
     then
         num_bers_bank=$i 
         echo "$i 🏦: $(head -n 1 $bers_bank)"; i=$((i+1))
@@ -324,7 +304,7 @@ function show_bank_list
         echo "🚫 This bank is bankrupt 🚫"
     fi
     
-    if [[ ((-e $snegir_bb)) && (-e $inf_snegir_bb) ]]
+    if [[ -e $snegir_bb ]]
     then
         num_snegir_bb=$i 
         echo "$i 🏦: $(head -n 1 $snegir_bb)"; i=$((i+1))
@@ -332,7 +312,7 @@ function show_bank_list
         echo "🚫 This bank is bankrupt 🚫"
     fi
         
-    if [[ ((-e $mr_fresh_app)) && (-e $inf_mr_fresh_app) ]]
+    if [[ -e $mr_fresh_app ]]
     then
         num_mr_fresh_app=$i 
         echo "$i 🏦: $(head -n 1 $mr_fresh_app)"; i=$((i+1))
@@ -340,7 +320,7 @@ function show_bank_list
         echo "🚫 This bank is bankrupt 🚫"
     fi
         
-    if [[ ((-e $fast_money)) && (-e $inf_fast_money) ]]
+    if [[ -e $fast_money ]]
     then
         num_fast_money=$i 
         echo "$i 🏦: $(head -n 1 $fast_money)"; i=$((i+1))
@@ -514,10 +494,9 @@ function choice_check
 
             determine_bank
             
-            rm $inf_bank
             rm $bank
             
-            sleep 15
+            sleep 10
 
             clear
             exit
@@ -564,21 +543,19 @@ function progress_bar
 
 function end_game
 {
-    printf "🥳 Congratulations! 🥳 \n\n🎷🎷Because you have $balance🤯 on your balance, game is over (minimum sum is 5🤯) 🎷🎷\n\n"
-    printf "🌟 Thank you for plaing! Bye! 🌟\n"
-
-    sleep 15
-
     main_f=./main.sh
     main_folder=./program_data
     banks=./banks
+
+    printf "🥳 Congratulations! 🥳 \n\n🎷🎷 Because you have $balance🤯 on your balance, game is over (minimum balance is 5🤯) 🎷🎷\n\n"
+    printf "🌟 Thank you for plaing! Bye! 🌟\n"
+
+    sleep 10
 
     rm -r $banks
     rm -r $main_folder
     rm  $main_f
     
-
     clear
     exit
 }
-

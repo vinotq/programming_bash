@@ -1,4 +1,1 @@
-TrueBank
-Persent: 7
-⚡ 1st offer: 10 persents for 45 sec
-⚡ 2d offer: 5 persents for 30 sec 
+TrueBank|7|10|45|5|30
