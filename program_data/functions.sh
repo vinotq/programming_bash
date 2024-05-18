@@ -70,27 +70,127 @@ function determine_bank
     then
         bank=$true_bank
 
+        line=$(cat $bank)
+
+        bank_name=$(echo "$line" | cut -d'|' -f1)
+        bankrupt_percent=$(echo "$line" | cut -d'|' -f2)
+        offer_1_percent=$(echo "$line" | cut -d'|' -f3)
+        offer_1_time=$(echo "$line" | cut -d'|' -f4)
+        offer_2_percent=$(echo "$line" | cut -d'|' -f5)
+        offer_2_time=$(echo "$line" | cut -d'|' -f6)
+
+        if [[ $offer -eq 1 ]]
+        then 
+            offer_percent=$offer_1_percent
+            offer_time=$offer_1_time
+        else
+            offer_percent=$offer_2_percent
+            offer_time=$offer_2_time
+        fi
+
     elif [[ num_bers_bank -eq $choosed_bank ]]
     then
         bank=$bers_bank
+
+        line=$(cat $bank)
+
+        bank_name=$(echo "$line" | cut -d'|' -f1)
+        bankrupt_percent=$(echo "$line" | cut -d'|' -f2)
+        offer_1_percent=$(echo "$line" | cut -d'|' -f3)
+        offer_1_time=$(echo "$line" | cut -d'|' -f4)
+        offer_2_percent=$(echo "$line" | cut -d'|' -f5)
+        offer_2_time=$(echo "$line" | cut -d'|' -f6)
+
+        if [[ $offer -eq 1 ]]
+        then 
+            offer_percent=$offer_1_percent
+            offer_time=$offer_1_time
+        else
+            offer_percent=$offer_2_percent
+            offer_time=$offer_2_time
+        fi
 
     elif [[ num_fast_money -eq $choosed_bank ]]
     then
         bank=$fast_money
 
+        line=$(cat $bank)
+
+        bank_name=$(echo "$line" | cut -d'|' -f1)
+        bankrupt_percent=$(echo "$line" | cut -d'|' -f2)
+        offer_1_percent=$(echo "$line" | cut -d'|' -f3)
+        offer_1_time=$(echo "$line" | cut -d'|' -f4)
+        offer_2_percent=$(echo "$line" | cut -d'|' -f5)
+        offer_2_time=$(echo "$line" | cut -d'|' -f6)
+
+        if [[ $offer -eq 1 ]]
+        then 
+            offer_percent=$offer_1_percent
+            offer_time=$offer_1_time
+        else
+            offer_percent=$offer_2_percent
+            offer_time=$offer_2_time
+        fi
+
     elif [[ num_mr_fresh_app -eq $choosed_bank ]]
     then
         bank=$mr_fresh_app
+
+        line=$(cat $bank)
+
+        bank_name=$(echo "$line" | cut -d'|' -f1)
+        bankrupt_percent=$(echo "$line" | cut -d'|' -f2)
+        offer_1_percent=$(echo "$line" | cut -d'|' -f3)
+        offer_1_time=$(echo "$line" | cut -d'|' -f4)
+        offer_2_percent=$(echo "$line" | cut -d'|' -f5)
+        offer_2_time=$(echo "$line" | cut -d'|' -f6)
+
+        if [[ $offer -eq 1 ]]
+        then 
+            offer_percent=$offer_1_percent
+            offer_time=$offer_1_time
+        else
+            offer_percent=$offer_2_percent
+            offer_time=$offer_2_time
+        fi
 
     elif [[ num_snegir_bb -eq $choosed_bank ]]
     then
         bank=$snegir_bb
 
+        line=$(cat $bank)
+
+        bank_name=$(echo "$line" | cut -d'|' -f1)
+        bankrupt_percent=$(echo "$line" | cut -d'|' -f2)
+        offer_1_percent=$(echo "$line" | cut -d'|' -f3)
+        offer_1_time=$(echo "$line" | cut -d'|' -f4)
+        offer_2_percent=$(echo "$line" | cut -d'|' -f5)
+        offer_2_time=$(echo "$line" | cut -d'|' -f6)
+
+        if [[ $offer -eq 1 ]]
+        then 
+            offer_percent=$offer_1_percent
+            offer_time=$offer_1_time
+        else
+            offer_percent=$offer_2_percent
+            offer_time=$offer_2_time
+        fi
+
     fi
+}
+
+function pattern_out
+{
+    printf "✅ You are in $bank_name office!\n\n⭐ There are all offers of this bank: \n\n"
+    printf "⚡ 1-st offer: $offer_1_percent persents for $offer_1_time seconds\n"
+    printf "⚡ 2-sd offer: $offer_2_percent persents for $offer_2_time seconds\n\n"
+    offer_check
 }
 
 function choose_bank
 {
+    determine_bank
+
     if [[ $choosed_bank -eq 0 ]]
     then
         clear
@@ -99,28 +199,28 @@ function choose_bank
     elif [[ $choosed_bank -eq num_true_bank ]]
     then
         clear
-        show_bank_true_bank
+        pattern_out
 
     elif [[ $choosed_bank -eq num_bers_bank ]]
     then
         clear
-        show_bank_bers_bank
+        pattern_out        
 
     elif [[ $choosed_bank -eq num_fast_money ]]
     then
         clear
-        show_bank_fast_money
+        pattern_out
 
     elif [[ $choosed_bank -eq num_mr_fresh_app ]]
     then
         clear
-        show_bank_mr_fresh_app
+        pattern_out
 
     elif [[ $choosed_bank -eq num_snegir_bb ]]
     then
         clear
-        show_bank_snegir_bb
-    
+        pattern_out
+            
     else
         clear
         printf "🚩 No such bank. Choose the correct bank! 🚩\n\n"   
@@ -129,201 +229,73 @@ function choose_bank
     fi
 }
 
-function offer_percent
-{
-    if [[ num_true_bank -eq $choosed_bank ]]
-    then
-        offer_1_percent=10
-        offer_2_percent=5
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_percent=$offer_1_percent
-        else
-            offer_percent=$offer_2_percent
-        fi
-
-    elif [[ num_bers_bank -eq $choosed_bank ]]
-    then
-        offer_1_percent=20
-        offer_2_percent=10
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_percent=$offer_1_percent
-        else
-            offer_percent=$offer_2_percent
-        fi
-
-    elif [[ num_fast_money -eq $choosed_bank ]]
-    then
-        offer_1_percent=10
-        offer_2_percent=5
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_percent=$offer_1_percent
-        else
-            offer_percent=$offer_2_percent
-        fi
-
-    elif [[ num_mr_fresh_app -eq $choosed_bank ]]
-    then
-        offer_1_percent=20
-        offer_2_percent=10
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_percent=$offer_1_percent
-        else
-            offer_percent=$offer_2_percent
-        fi
-
-    elif [[ num_snegir_bb -eq $choosed_bank ]]
-    then
-        offer_1_percent=10
-        offer_2_percent=5
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_percent=$offer_1_percent
-        else
-            offer_percent=$offer_2_percent
-    fi
-    fi
-}
-
-function offer_time
-{
-    if [[ num_true_bank -eq $choosed_bank ]]
-    then
-        offer_1_time=0.45
-        offer_2_time=0.3
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_time=$offer_1_time
-        else
-            offer_time=$offer_2_time
-        fi
-
-    elif [[ num_bers_bank -eq $choosed_bank ]]
-    then
-        offer_1_time=0.6
-        offer_2_time=0.47
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_time=$offer_1_time
-        else
-            offer_time=$offer_2_time
-        fi
-
-    elif [[ num_fast_money -eq $choosed_bank ]]
-    then
-        offer_1_time=0.17
-        offer_2_time=0.08
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_time=$offer_1_time
-        else
-            offer_time=$offer_2_time
-        fi
-
-    elif [[ num_mr_fresh_app -eq $choosed_bank ]]
-    then
-        offer_1_time=0.44
-        offer_2_time=0.22
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_time=$offer_1_time
-        else
-            offer_time=$offer_2_time
-        fi
-
-    elif [[ num_snegir_bb -eq $choosed_bank ]]
-    then
-        offer_1_time=0.47
-        offer_2_time=0.16
-
-        if [[ $offer -eq 1 ]]
-        then 
-            offer_time=$offer_1_time
-        else
-            offer_time=$offer_2_time
-    fi
-    fi
-}
-
-function determine_bankrupt_percent
-{
-    if [[ num_true_bank -eq $choosed_bank ]]
-    then
-        bankrupt_percent=7
-
-    elif [[ num_bers_bank -eq $choosed_bank ]]
-    then
-        bankrupt_percent=1
-
-    elif [[ num_fast_money -eq $choosed_bank ]]
-    then
-        bankrupt_percent=47
-
-    elif [[ num_mr_fresh_app -eq $choosed_bank ]]
-    then
-        bankrupt_percent=21
-
-    elif [[ num_snegir_bb -eq $choosed_bank ]]
-    then
-        bankrupt_percent=13
-
-    fi
-}
-
 function show_bank_list
 {
+    if [[ (! -e $true_bank) && (! -e $bers_bank) && (! -e $mr_fresh_app) && (! -e $fast_money) && (! -e $snegir_bb) ]]
+    then
+        end_game
+    fi
+
     i=1
 
     printf "⭐ There are all banks for this moment: \n\n"
 
     if [[ -e $true_bank ]]
     then
+        bank=$true_bank
         num_true_bank=$i 
-        echo "$i 🏦: $(head -n 1 $true_bank)"; i=$((i+1))
+        
+        line=$(cat $bank)
+
+        echo "$i 🏦: $(echo "$line" | cut -d'|' -f1)"; i=$((i+1))
     else
         echo "🚫 This bank is bankrupt 🚫"
     fi
 
     if [[ -e $bers_bank ]]
     then
+        bank=$bers_bank
         num_bers_bank=$i 
-        echo "$i 🏦: $(head -n 1 $bers_bank)"; i=$((i+1))
+
+        line=$(cat $bank)
+
+        echo "$i 🏦: $(echo "$line" | cut -d'|' -f1)"; i=$((i+1))
     else
         echo "🚫 This bank is bankrupt 🚫"
     fi
     
     if [[ -e $snegir_bb ]]
     then
+        bank=$snegir_bb
         num_snegir_bb=$i 
-        echo "$i 🏦: $(head -n 1 $snegir_bb)"; i=$((i+1))
+
+        line=$(cat $bank)
+
+        echo "$i 🏦: $(echo "$line" | cut -d'|' -f1)"; i=$((i+1))
     else
         echo "🚫 This bank is bankrupt 🚫"
     fi
         
     if [[ -e $mr_fresh_app ]]
     then
+        bank=$mr_fresh_app
         num_mr_fresh_app=$i 
-        echo "$i 🏦: $(head -n 1 $mr_fresh_app)"; i=$((i+1))
+
+        line=$(cat $bank)
+
+        echo "$i 🏦: $(echo "$line" | cut -d'|' -f1)"; i=$((i+1))
     else
         echo "🚫 This bank is bankrupt 🚫"
     fi
         
     if [[ -e $fast_money ]]
     then
+        bank=$fast_money
         num_fast_money=$i 
-        echo "$i 🏦: $(head -n 1 $fast_money)"; i=$((i+1))
+
+        line=$(cat $bank)
+
+        echo "$i 🏦: $(echo "$line" | cut -d'|' -f1)"; i=$((i+1))
     else
         echo "🚫 This bank is bankrupt 🚫"
     fi
@@ -343,28 +315,13 @@ function show_bank_list
 
 function offer_check
 {   
-    if [[ num_true_bank -eq $choosed_bank ]]
-    then
-        show_info_true_bank
-    elif [[ num_bers_bank -eq $choosed_bank ]]
-    then
-        show_info_bers_bank
-    elif [[ num_fast_money -eq $choosed_bank ]]
-    then
-        show_info_fast_money
-    elif [[ num_mr_fresh_app -eq $choosed_bank ]]
-    then
-        show_info_mr_fresh_app
-    elif [[ num_snegir_bb -eq $choosed_bank ]]
-    then
-        show_info_snegir_bb
-    fi
-
     read -p "💠 Please choose the offer: " offer
 
-    if ! echo "$offer" | grep -Eq '^[0-9]+$'; then
+    if ! echo "$offer" | grep -Eq '^[0-9]+$'
+    then
         clear
-        printf "🚩 There is no such option. The script uses only numbers, so don't enter characters here! 🚩\n\n"  
+        printf "🚩 There is no such option. The script uses only numbers, so don't enter characters here! 🚩\n\n"
+        pattern_out  
         offer_check 
     fi
     
@@ -381,13 +338,14 @@ function offer_check
     else
         clear
         printf "🚩 No such offer. Choose the correct! 🚩\n\n"
+        pattern_out
         offer_check
     fi  
 }
 
 function choose_sum
 {   
-    offer_percent
+    determine_bank
 
     if [[ offer_percent -eq 5 ]]
     then
@@ -463,7 +421,7 @@ function choice_check
     elif [[ $choice -eq 1 ]]
     then
         
-        offer_time
+        determine_bank
         clear
 
         printf "⏳ Time is going! ⏳ \n\n"
@@ -473,11 +431,11 @@ function choice_check
 
         for number in $(seq ${start} ${end})
         do
-            sleep $offer_time
+            sleep "$(bc<<<"scale=2;$offer_time/100")"
             progress_bar ${number} ${end}
         done
 
-        determine_bankrupt_percent
+        determine_bank
 
         is_bankrupt=$(($RANDOM % 100 + 1))
 
@@ -515,7 +473,7 @@ function choice_check
 
 function calculating_benefit
 {
-    offer_percent
+    determine_bank
 
     clear
 
@@ -524,7 +482,7 @@ function calculating_benefit
     balance=$(($balance+$benefit))
     echo $balance > ./program_data/balance.txt
 
-    printf "🥳 Congratulations! Now you have $balance🤯. This offer gave you $benefit🤯 benefit! 🥳\n\n"
+    printf "🥳 Congratulations!🥳\n\n💸 Now you have $balance🤯. This offer gave you $benefit🤯 benefit! 💸\n\n"
     printf "❗WARNING❗\n\nAfter 10 seconds you will teleport to bank office!\n\n"
     sleep 10
 
@@ -547,8 +505,14 @@ function end_game
     main_folder=./program_data
     banks=./banks
 
-    printf "🥳 Congratulations! 🥳 \n\n🎷🎷 Because you have $balance🤯 on your balance, game is over (minimum balance is 5🤯) 🎷🎷\n\n"
-    printf "🌟 Thank you for plaing! Bye! 🌟\n"
+    if [[ $balance -lt 5 ]]
+    then
+        printf "🥳 Congratulations! 🥳 \n\n🎷🎷 Because you have $balance🤯 on your balance, game is over (minimum balance is 5🤯) 🎷🎷\n\n"
+        printf "🌟 Thank you for plaing! Bye! 🌟\n"
+    else
+        printf "🥳 Congratulations! 🥳 \n\n🎷🎷 Because all banks are bankrupts, game is over 🎷🎷\n\n"
+        printf "🌟 Thank you for plaing! Bye! 🌟\n"
+    fi
 
     sleep 10
 
