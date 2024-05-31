@@ -1,28 +1,28 @@
 #!/bin/bash
 
-if [[ $# -ne 4 ]]; then
-    echo "Usage: $0 -i input_file -o output_file"
-    exit 1
-fi
+word=$5
 
-while [[ $# -gt 0 ]]; do
+while [[ $# -gt 1 ]]
+do
     case $1 in
-        "-i") input_file=$2; shift ;;
-        "-o") output_file=$2; shift ;;
-        *) echo "Usage: $0 -i input_file -o output_file"
-           exit 1 ;;
+        "-i") input_file=$2 ; shift ;;
+        "-o") output_file=$2 ; shift ;;
+        *) echo "Неверный ввод. -i - входной файл, -o - выходной файл, слово, которое требуется найти" ; exit 1 ;;
     esac
     shift
 done
 
-read -p "Enter the word to count: " word
-
-if [[ ! -f "$input_file" ]]; then
-    echo "Input file not found!"
+if [[ ! -f $input_file ]]
+then
+    echo "Нет входного файла"
     exit 1
 fi
 
-count=$(grep -o -w "$word" "$input_file" | wc -l)
+if [[ ! -n $word ]]
+then
+    echo "Не введено ключевое слово"
+    exit 1
+fi
 
-echo "The word '$word' occurs $count times in the file '$input_file'" > "$output_file"
-echo "Result written to '$output_file'."
+echo "Результат работы скрипта: $(grep -c $word $input_file)" > $output_file
+echo "Успешно!"
