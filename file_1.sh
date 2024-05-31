@@ -1,36 +1,28 @@
 #!/bin/bash
 
-hm_numbers=0
-sum_1=0
-x=0
+if [[ $# -ne 4 ]]; then
+    echo "Usage: $0 -i input_file -o output_file"
+    exit 1
+fi
 
-balancedNum ()
-{
-    number=$1
-    
-    for num in $(echo $number | grep -oP '.')
-    do
-        hm_numbers=$(($hm_numbers+1))
-    done
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        "-i") input_file=$2; shift ;;
+        "-o") output_file=$2; shift ;;
+        *) echo "Usage: $0 -i input_file -o output_file"
+           exit 1 ;;
+    esac
+    shift
+done
 
-    echo $hm_numbers
+read -p "Enter the word to count: " word
 
-    if [[ $(($hm_numbers%2)) -eq 0 ]]
-    then
-        n_num=$hm_numbers
+if [[ ! -f "$input_file" ]]; then
+    echo "Input file not found!"
+    exit 1
+fi
 
-        while [[ $n_num -gt $((($hm_numbers+4)/2)) ]]
-        do
-            x=$(($number%10))
-            sum_1=$(($sum_1+$x))
-            n_num=$(($n_num-1))
-        done
-    else
-        echo "ol"
-    fi
-    
-    echo $sum_1
-    
-}
+count=$(grep -o -w "$word" "$input_file" | wc -l)
 
-balancedNum $1
+echo "The word '$word' occurs $count times in the file '$input_file'" > "$output_file"
+echo "Result written to '$output_file'."
